@@ -7,6 +7,31 @@ BTCWord = ['BTC', 'btc', 'Bitcoin', 'bitcoin']
 ETHWord = ['ETH', 'eth' 'Ethereum', 'ethereum']
 SOLWord = ['SOL', 'sol', 'solana', 'Solana']
 
+class Setup:
+    def __init__(self, blank):
+        self.blank = blank
+
+    def welcome(self):
+        print(datetime.date.today())
+        print('Welcome to the Multi-coin Crypto Wallet')
+        self.DetCoin()
+
+    def DetCoin(self):
+        leadInput = input("To continue please enter the coin you would like to search for: ")
+        if leadInput in BTCWord:
+            self.InputBTC()
+
+    def InputBTC(self):
+        addrB = Bitcoin(input("What is you Bitcoin Public Key: "))
+        addrB.Pull()
+
+    def InputETH(self):
+        addrE = Ethereum(input("What is you Ethereum Public Key: "))
+        addrE.Pull()
+
+    def InputSOL(self):
+        addrS = Solana(input("What is you Solana Public Key: "))
+        addrS.Pull()
 
 class Convert:
     def __init__(self, coinQuantity, coin, currency):
@@ -80,33 +105,6 @@ class Solana:
         print(totalSol)
         SolConvert = Convert(totalSol, 'SOL', 'USD')
         SolConvert.convertMain()
-
-
-class Setup:
-    def __init__(self, blank):
-        self.blank = blank
-
-    def welcome(self):
-        print(datetime.date.today())
-        print('Welcome to the Multi-coin Crypto Wallet')
-        self.DetCoin()
-
-    def DetCoin(self):
-        leadInput = input("To continue please enter the coin you would like to search for: ")
-        if leadInput in BTCWord:
-            self.InputBTC()
-
-    def InputBTC(self):
-        addrB = Bitcoin(input("What is you Bitcoin Public Key: "))
-        addrB.Pull()
-
-    def InputETH(self):
-        addrE = Ethereum(input("What is you Ethereum Public Key: "))
-        addrE.Pull()
-
-    def InputSOL(self):
-        addrS = Solana(input("What is you Solana Public Key: "))
-        addrS.Pull()
 
 
 start = Setup('')
