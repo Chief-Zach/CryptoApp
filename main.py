@@ -4,8 +4,9 @@ import requests
 import json
 
 BTCWord = ['BTC', 'btc', 'Bitcoin', 'bitcoin']
-ETHWord = ['ETH', 'eth' 'Ethereum', 'ethereum']
+ETHWord = ['ETH', 'eth', 'Ethereum', 'ethereum']
 SOLWord = ['SOL', 'sol', 'solana', 'Solana']
+BNBWord = ['BNB', 'bnb', 'Binance', 'binance']
 
 class Setup:
     def __init__(self, blank):
@@ -20,6 +21,14 @@ class Setup:
         leadInput = input("To continue please enter the coin you would like to search for: ")
         if leadInput in BTCWord:
             self.InputBTC()
+        elif leadInput in ETHWord:
+            self.InputETH()
+        elif leadInput in SOLWord:
+            self.InputSOL()
+        elif leadInput in BNBWord:
+            print ('Binance support is currently under maintenance')
+            self.DetCoin()
+            #self.InputBNB()
 
     def InputBTC(self):
         addrB = Bitcoin(input("What is you Bitcoin Public Key: "))
@@ -32,6 +41,12 @@ class Setup:
     def InputSOL(self):
         addrS = Solana(input("What is you Solana Public Key: "))
         addrS.Pull()
+
+    def InputBNB(self):
+        addrBN = Binance(input("What is you Binance Public Key: "))
+        addrBN.Pull()
+
+
 
 class Convert:
     def __init__(self, coinQuantity, coin, currency):
@@ -47,7 +62,7 @@ class Convert:
 
     def convertMain(self):
         convert = self.coinQuantity * self.conversionRate()
-        print('$' + str(round((convert), 2)))
+        print('$' + str(round(convert, 2)))
 
 
 class Bitcoin:
@@ -106,13 +121,20 @@ class Solana:
         SolConvert = Convert(totalSol, 'SOL', 'USD')
         SolConvert.convertMain()
 
+class Binance:
+    def __init__(self, addr):
+        self.addr = addr
+
+    def Pull(self):
+        linkAddr = 'https://dex.binance.org/api/v1/account/' + self.addr
+        r = requests.get(linkAddr)
+        part = r.json()['balance']
+        print(part)
+        totalBnb = part / (10 ** 18)
+        print(str(totalBnb) + 'BNB')
+        BnbConvert = Convert(totalBnb, 'BNB', 'USD')
+        BnbConvert.convertMain()
+
 
 start = Setup('')
 start.welcome()
-
-"""
-addrB = Bitcoin('bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh')
-addrE = Ethereum('738d145faabb1e00cf5a017588a9c0f998318012')
-addrS = Solana('FrnE6mc35yb6mEGFDAfRStrT2WAy46SVxzGjqsbcNcnY')
-addrS.Pull()
-"""
