@@ -8,6 +8,7 @@ ETHWord = ['ETH', 'eth', 'Ethereum', 'ethereum']
 SOLWord = ['SOL', 'sol', 'solana', 'Solana']
 BNBWord = ['BNB', 'bnb', 'Binance', 'binance']
 
+
 class Setup:
     def __init__(self, blank):
         self.blank = blank
@@ -26,9 +27,9 @@ class Setup:
         elif leadInput in SOLWord:
             self.InputSOL()
         elif leadInput in BNBWord:
-            print ('Binance support is currently under maintenance')
+            print('Binance support is currently under maintenance')
             self.DetCoin()
-            #self.InputBNB()
+            # self.InputBNB()
 
     def InputBTC(self):
         addrB = Bitcoin(input("What is you Bitcoin Public Key: "))
@@ -45,7 +46,6 @@ class Setup:
     def InputBNB(self):
         addrBN = Binance(input("What is you Binance Public Key: "))
         addrBN.Pull()
-
 
 
 class Convert:
@@ -120,6 +120,7 @@ class Solana:
         print(totalSol)
         SolConvert = Convert(totalSol, 'SOL', 'USD')
         SolConvert.convertMain()
+
 
 class Binance:
     def __init__(self, addr):
