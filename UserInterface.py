@@ -8,20 +8,21 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import ScreenManager, Screen
 
-
-yellow = [1,1,0,1]
-grey = [1,1,1,1]
-blue =  [0,0,1,1]
-purple = [1,0,1,1]
+yellow = [1, 1, 0, 1]
+grey = [1, 1, 1, 1]
+blue = [0, 0, 1, 1]
+purple = [1, 0, 1, 1]
 
 ButtonNames = ["Bitcoin", "Ethereum", "Solana"]
 ButtonColours = [yellow, grey, purple]
+
+
 class HomeScreenLayout(App):
     def build(self):
-        layout = BoxLayout(padding=10,orientation="vertical")
+        layout = BoxLayout(padding=10, orientation="vertical")
         btcBtn = Button(text=ButtonNames[0],
-                     background_color=ButtonColours[0]
-                     )
+                        background_color=ButtonColours[0]
+                        )
         btcBtn.bind(on_press=self.btcClicked)
         ethBtn = Button(text=ButtonNames[1],
                         background_color=ButtonColours[1]
@@ -33,9 +34,11 @@ class HomeScreenLayout(App):
         layout.add_widget(ethBtn)
         layout.add_widget(solBtn)
         return layout
+
     def btcClicked(self, *args):
         app = CoinInterface()
         app.run()
+
 
 class CoinInterface(App):
     def build(self):
