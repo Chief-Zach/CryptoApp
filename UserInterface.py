@@ -7,7 +7,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.textinput import TextInput
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import ScreenManager, Screen
-
+from main import Bitcoin
 yellow = [1, 1, 0, 1]
 grey = [1, 1, 1, 1]
 blue = [0, 0, 1, 1]
