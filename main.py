@@ -128,11 +128,14 @@ def binance(self):
 
 def main(argv):
     if argv[0] == "bitcoin":
-        return bitcoin(argv[1])
+        return "You have chosen Bitcoin!"
+        # return bitcoin(argv[1])
     elif argv[0] == "solana":
-        return solana(argv[1])
+        return "You have chosen Bitcoin!"
+        # return solana(argv[1])
     elif argv[0] == "ethereum":
-        return ethereum(argv[1])
+        return "You have chosen Bitcoin!"
+        # return ethereum(argv[1])
     else:
         return "Error"
 
