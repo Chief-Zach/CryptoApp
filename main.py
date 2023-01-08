@@ -64,7 +64,7 @@ class Convert:
 
     def convertMain(self):
         convert = self.coinQuantity * self.conversionRate()
-        print('$' + str(round(convert, 2)))
+        return '$' + str(round(convert, 2))
 
 
 # BITCOIN
@@ -76,7 +76,7 @@ def bitcoin(addr):
     totalBtc = int(satoshi) / (10 ** 8)
     print(str(totalBtc) + 'BTC')
     BtcConvert = Convert(totalBtc, 'BTC', 'USD')
-    BtcConvert.convertMain()
+    return BtcConvert.convertMain()
 
 
 # ETHEREUM
@@ -89,7 +89,7 @@ def ethereum(addr):
     totalEth = wei / (10 ** 18)
     print(str(totalEth) + 'ETH')
     EthConvert = Convert(totalEth, 'ETH', 'USD')
-    EthConvert.convertMain()
+    return EthConvert.convertMain()
 
 
 def solanaPost(addr):
@@ -112,7 +112,7 @@ def solana(addr):
     totalSol = lamports / (10 ** 9)
     print(totalSol)
     SolConvert = Convert(totalSol, 'SOL', 'USD')
-    SolConvert.convertMain()
+    return SolConvert.convertMain()
 
 
 def binance(self):
@@ -124,3 +124,14 @@ def binance(self):
     print(str(totalBnb) + 'BNB')
     BnbConvert = Convert(totalBnb, 'BNB', 'USD')
     BnbConvert.convertMain()
+
+
+def main(argv):
+    if argv[1] == "bitcoin":
+        return bitcoin(argv[2])
+    elif argv[1] == "solana":
+        return solana(argv[2])
+    elif argv[1] == "ethereum":
+        return ethereum(argv[2])
+    else:
+        return "Error"
