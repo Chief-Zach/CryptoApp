@@ -1,8 +1,12 @@
 let balance = 0;
+let mode = "a"
 const result_div = document.querySelector(".result")
 const bitcoin_div = document.querySelector("#bitcoin")
 const solana_div = document.querySelector("#solana")
 const ethereum_div = document.querySelector("#ethereum")
+const searchInput = document.querySelector("#input")
+const submit_div = document.querySelector(".submit")
+const form = document.getElementById("submit-form")
 
 let BNBWord, BTCWord, ETHWord, SOLWord;
 
@@ -21,15 +25,21 @@ class Convert {
     conversionRate() {
         let END, link, r;
         link = "https://cex.io/api/ticker/" + this.coin + "/" + this.currency;
-        r = requests.get(link);
-        END = r.json()["last"];
+        fetch(link)
+            .then(response => {
+                END = response.json()
+            })
+            .catch(() => {
+            })
+
+        END = END["last"];
         return Number.parseFloat(END);
     }
 
     convertMain() {
         let convert;
         convert = this.coinQuantity * this.conversionRate();
-        return "$" + round(convert, 2).toString();
+        return "$" + convert.toString();
     }
 
 }
@@ -53,8 +63,15 @@ function bitcoin(addr) {
 function ethereum(addr) {
     let EthConvert, linkAddr, r, totalEth, wei;
     linkAddr = "https://api.blockcypher.com/v1/eth/main/addrs/" + addr;
-    r = requests.get(linkAddr);
-    wei = r.json()["balance"];
+    fetch(linkAddr)
+        .then(response => {
+            wei = response.json()
+        })
+        .catch(() => {
+            wei = 0
+        })
+
+    wei = wei["balance"];
     console.log(wei);
     totalEth = wei / Math.pow(10, 18);
     console.log(totalEth.toString() + "ETH");
@@ -74,45 +91,47 @@ function solanaPost(addr) {
         "params": [addr],
         "id": 0
     };
-    r = requests.post(url, {
-        "data": json.dumps(result),
-        "headers": headers
-    });
-    return r;
+    fetch(url, {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(result)
+    }).then(res => {
+        return res.json();
+});
 }
 
 function solana(addr) {
     let SolConvert, lamports, r, totalSol;
     r = solanaPost(addr);
-    lamports = r.json()["result"]["value"];
+    lamports = r["result"]["value"];
     totalSol = lamports / Math.pow(10, 9);
     console.log(totalSol);
     SolConvert = new Convert(totalSol, "SOL", "USD");
     return SolConvert.convertMain();
 }
 
-function binance(addr) {
-    let BnbConvert, linkAddr, part, r, totalBnb;
-    linkAddr = "https://dex.binance.org/api/v1/account/" + addr;
-    r = requests.get(linkAddr);
-    part = r.json()["balance"];
-    console.log(part);
-    totalBnb = part / Math.pow(10, 18);
-    console.log(totalBnb.toString() + "BNB");
-    BnbConvert = new Convert(totalBnb, "BNB", "USD");
-    BnbConvert.convertMain();
-}
-
 bitcoin_div.addEventListener("click", function() {
-    console.log("You have chosen Bitcoin")
+    mode = "bitcoin"
+    console.log(`Mode has been set to ${mode}`)
 })
 
 solana_div.addEventListener("click", function() {
-    console.log("You have chosen Solana")
-
+    mode = "solana"
+    console.log(`Mode has been set to ${mode}`)
 })
 
 ethereum_div.addEventListener("click", function() {
-    console.log("You have chosen Ethereum")
-
+    mode = "ethereum"
+    console.log(`Mode has been set to ${mode}`)
 })
+
+function getData(form) {
+    const formData = new FormData(form);
+    console.log(Object.fromEntries(formData));
+}
+
+form.addEventListener("submit", function(e) {
+    e.preventDefault(); // prevents page from reloading/sending data to server
+    getData(e.target);
+});
+

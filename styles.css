@@ -60,6 +60,10 @@ body {
     transition: .3s;
 }
 
+.inpt {
+
+}
+
 #bitcoin {
     color: orange;
 }
