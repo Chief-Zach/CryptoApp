@@ -64,62 +64,51 @@ class Convert:
         convert = self.coinQuantity * self.conversionRate()
         print('$' + str(round(convert, 2)))
 
+# BITCOIN
 
-class Bitcoin:
-
-    def __init__(self, addr):
-        self.addr = addr
-
-    def Pull(self):
-        linkAddr = 'https://blockchain.info/q/addressbalance/' + self.addr
-        r = requests.get(linkAddr)
-        satoshi = r.text
-        totalBtc = int(satoshi) / (10 ** 8)
-        print(str(totalBtc) + 'BTC')
-        BtcConvert = Convert(totalBtc, 'BTC', 'USD')
-        BtcConvert.convertMain()
+def bitcoin(addr):
+    linkAddr = 'https://blockchain.info/q/addressbalance/' + addr
+    r = requests.get(linkAddr)
+    satoshi = r.text
+    totalBtc = int(satoshi) / (10 ** 8)
+    print(str(totalBtc) + 'BTC')
+    BtcConvert = Convert(totalBtc, 'BTC', 'USD')
+    BtcConvert.convertMain()
 
 
-class Ethereum:
+# ETHEREUM
 
-    def __init__(self, addr):
-        self.addr = addr
-
-    def Pull(self):
-        linkAddr = 'https://api.blockcypher.com/v1/eth/main/addrs/' + self.addr
-        r = requests.get(linkAddr)
-        wei = r.json()['balance']
-        print(wei)
-        totalEth = wei / (10 ** 18)
-        print(str(totalEth) + 'ETH')
-        EthConvert = Convert(totalEth, 'ETH', 'USD')
-        EthConvert.convertMain()
+def ethereum(addr):
+    linkAddr = 'https://api.blockcypher.com/v1/eth/main/addrs/' + self.addr
+    r = requests.get(linkAddr)
+    wei = r.json()['balance']
+    print(wei)
+    totalEth = wei / (10 ** 18)
+    print(str(totalEth) + 'ETH')
+    EthConvert = Convert(totalEth, 'ETH', 'USD')
+    EthConvert.convertMain()
 
 
-class Solana:
-    def __init__(self, addr):
-        self.addr = addr
+def solanaPost(addr):
+    url = 'https://api.mainnet-beta.solana.com'
+    headers = {'content-type': 'application/json'}
 
-    def setup(self):
-        url = 'https://api.mainnet-beta.solana.com'
-        headers = {'content-type': 'application/json'}
+    result = {
+        "jsonrpc": "2.0",
+        "method": "getBalance",
+        "params": [self.addr],
+        "id": 0,
+    }
+    r = requests.post(url, data=json.dumps(result), headers=headers)
+    return r
 
-        result = {
-            "jsonrpc": "2.0",
-            "method": "getBalance",
-            "params": [self.addr],
-            "id": 0,
-        }
-        r = requests.post(url, data=json.dumps(result), headers=headers)
-        return r
-
-    def Pull(self):
-        r = self.setup()
-        lamports = r.json()['result']['value']
-        totalSol = lamports / (10 ** 9)
-        print(totalSol)
-        SolConvert = Convert(totalSol, 'SOL', 'USD')
-        SolConvert.convertMain()
+def solana(addr):
+    r = solanaPost()
+    lamports = r.json()['result']['value']
+    totalSol = lamports / (10 ** 9)
+    print(totalSol)
+    SolConvert = Convert(totalSol, 'SOL', 'USD')
+    SolConvert.convertMain()
 
 
 class Binance:

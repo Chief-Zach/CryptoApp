@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css?family=Asap:400,500,700');
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-family: Asap, sans-serif;
+    font-size: 40px;
+    margin: 20px auto 0;
+    border: 3px solid white;
+    border-radius: 100px;
+    text-align: center;
+    background-color: red;
+    width: 400px;
+}
+
+body {
+    background-color: #24272E;
+}
+
+.searchbar {
+    overflow: hidden;
+    position: relative;
+    left: 40%;
+}
+
+.searchbar input[type=text]{
+    font-size: 40px;
+    font-family: Asap, sans-serif;
+    text-align: center;
+    color: white;
+    background-color: grey;
+}
+
+.searchbar button[type=submit] {
+    font-size: 40px;
+    font-family: Asap, sans-serif;
+    background-color: grey;
+    color: white;
+
+}
+
+.buttons {
+    text-align: center;
+    font-size: 40px;
+    color: white;
+    padding: 25px;
+    font-weight: bold;
+    font-family: Asap, sans-serif;
+}
+
+.button {
+    border: 4px solid white;
+    border-radius: 5%;
+    margin: 0 35px;
+    padding: 30px;
+    display: inline-block;
+    transition: .3s;
+}
+
+#bitcoin {
+    color: orange;
+}
+
+#solana {
+    color: mediumpurple;
+}
+
+#ethereum {
+    color: cornflowerblue;
+}
+
+.result {
+    margin: 20px;
+    text-align: center;
+    font-family: Asap, sans-serif;
+    font-size: 30px;
+    color: white;
+    font-weight: bold;
+}
+
+.button:hover {
+    background-color: black;
+    cursor: pointer;
+}
