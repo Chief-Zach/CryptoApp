@@ -8,7 +8,7 @@ ETHWord = ['ETH', 'eth', 'Ethereum', 'ethereum']
 SOLWord = ['SOL', 'sol', 'solana', 'Solana']
 BNBWord = ['BNB', 'bnb', 'Binance', 'binance']
 
-
+""""
 class Setup:
     def __init__(self, blank):
         self.blank = blank
@@ -47,6 +47,8 @@ class Setup:
         addrBN = Binance(input("What is you Binance Public Key: "))
         addrBN.Pull()
 
+"""
+
 
 class Convert:
     def __init__(self, coinQuantity, coin, currency):
@@ -64,6 +66,7 @@ class Convert:
         convert = self.coinQuantity * self.conversionRate()
         print('$' + str(round(convert, 2)))
 
+
 # BITCOIN
 
 def bitcoin(addr):
@@ -79,7 +82,7 @@ def bitcoin(addr):
 # ETHEREUM
 
 def ethereum(addr):
-    linkAddr = 'https://api.blockcypher.com/v1/eth/main/addrs/' + self.addr
+    linkAddr = 'https://api.blockcypher.com/v1/eth/main/addrs/' + addr
     r = requests.get(linkAddr)
     wei = r.json()['balance']
     print(wei)
@@ -96,14 +99,15 @@ def solanaPost(addr):
     result = {
         "jsonrpc": "2.0",
         "method": "getBalance",
-        "params": [self.addr],
+        "params": [addr],
         "id": 0,
     }
     r = requests.post(url, data=json.dumps(result), headers=headers)
     return r
 
+
 def solana(addr):
-    r = solanaPost()
+    r = solanaPost(addr)
     lamports = r.json()['result']['value']
     totalSol = lamports / (10 ** 9)
     print(totalSol)
@@ -111,20 +115,12 @@ def solana(addr):
     SolConvert.convertMain()
 
 
-class Binance:
-    def __init__(self, addr):
-        self.addr = addr
-
-    def Pull(self):
-        linkAddr = 'https://dex.binance.org/api/v1/account/' + self.addr
-        r = requests.get(linkAddr)
-        part = r.json()['balance']
-        print(part)
-        totalBnb = part / (10 ** 18)
-        print(str(totalBnb) + 'BNB')
-        BnbConvert = Convert(totalBnb, 'BNB', 'USD')
-        BnbConvert.convertMain()
-
-
-start = Setup('')
-start.welcome()
+def binance(self):
+    linkAddr = 'https://dex.binance.org/api/v1/account/' + self.addr
+    r = requests.get(linkAddr)
+    part = r.json()['balance']
+    print(part)
+    totalBnb = part / (10 ** 18)
+    print(str(totalBnb) + 'BNB')
+    BnbConvert = Convert(totalBnb, 'BNB', 'USD')
+    BnbConvert.convertMain()
