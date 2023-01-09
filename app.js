@@ -124,14 +124,3 @@ ethereum_div.addEventListener("click", function() {
     mode = "ethereum"
     console.log(`Mode has been set to ${mode}`)
 })
-
-function getData(form) {
-    const formData = new FormData(form);
-    console.log(Object.fromEntries(formData));
-}
-
-form.addEventListener("submit", function(e) {
-    e.preventDefault(); // prevents page from reloading/sending data to server
-    getData(e.target);
-});
-
