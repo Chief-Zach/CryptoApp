@@ -1,29 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Crypto App</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-<h1>Welcome to my Crypto Wallet App</h1>
-<div class="main">
-<div class="buttons">
-  <div class="button"><p id="bitcoin">Bitcoin</p></div>
-    <div class="button"><p id="ethereum">Ethereum</p></div>
-    <div class="button">  <p id="solana">Solana</p></div>
-</div>
-    <div class="searchbar">
-        <form id="submit-form" action="#">
-            <input type="text" id="input" placeholder="Public Key">
-            <button type="submit" id="button-submit">Submit</button>
-        </form>
-    </div>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <script>
+    const formSubmit = (e) => {
+      e.preventDefault();
 
-<div class="result">
-  <p>This is the balance of your portfolio</p>
-</div>
-</div>
-<script src="app.js"></script>
-</body>
+      let input = document.getElementById("input").value;
+
+      console.log("Wallet Address: " + input);
+    };
+  </script>
+  <body>
+    <h1>Welcome to my Crypto Wallet App</h1>
+    <div class="main">
+      <div class="buttons">
+        <div class="button"><p id="bitcoin">Bitcoin</p></div>
+        <div class="button"><p id="ethereum">Ethereum</p></div>
+        <div class="button"><p id="solana">Solana</p></div>
+      </div>
+      <div class="searchbar">
+        <form id="submit-form" onsubmit="formSubmit(event)">
+          <input type="text" id="input" placeholder="Public Key" />
+          <button type="submit" id="button-submit">Submit</button>
+        </form>
+      </div>
+
+      <div class="result">
+        <p>This is the balance of your portfolio</p>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
 </html>
